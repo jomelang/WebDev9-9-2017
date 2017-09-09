@@ -1,0 +1,19 @@
+# Uncomment the following to prevent the httpoxy vulnerability
+# See: https://httpoxy.org/
+#<IfModule mod_headers.c>
+#    RequestHeader unset Proxy
+#</IfModule>
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+Options -Indexes
+
+ErrorDocument 404 /frontend/error.html
+ErrorDocument 403 /frontend/error.html
+ErrorDocument 500 /frontend/error.html
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+</IfModule>
